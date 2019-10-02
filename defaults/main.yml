@@ -1,2 +1,3 @@
 ---
-# defaults file for git-mirror
+git_mirrors: []
+git_mirror_clone_dir: "git-repos"

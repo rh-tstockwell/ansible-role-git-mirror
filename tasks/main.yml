@@ -1,2 +1,12 @@
 ---
+- name: Ensure clone directory exists
+  file:
+    state: directory
+    path: "{{ git_mirror_clone_dir }}"
+
+- include_tasks: mirror.yml
+  loop: "{{ git_mirrors }}"
+  loop_control:
+    loop_var: repo
+
 # tasks file for git-mirror
