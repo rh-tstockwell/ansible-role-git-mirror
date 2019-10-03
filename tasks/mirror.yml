@@ -12,21 +12,17 @@
   stat:
     path: "{{ git_mirror_dir }}/{{ mirror_name }}"
 
-- when: not dir.stat.exists
-  block:
-    - debug:
-        msg: "Cloning {{ repo }} -> {{ mirror_name }}..."
+- name: Show repository loop info
+  debug:
+    msg: "({{ index + 1 }}/{{ total }}) {{ mirror_name }}"
 
-    - name: Clone repository
-      command: git clone "{{ repo }}" "{{ mirror_dir }}"
+- name: Clone repository
+  when: not dir.stat.exists
+  command: git clone "{{ repo }}" "{{ mirror_dir }}"
 
-- when: dir.stat.exists
-  block:
-    - debug:
-        msg: "Updating {{ mirror_name }}..."
-
-    - name: Update repository
-      command: git remote update
-      args:
-        chdir: "{{ mirror_dir }}"
+- name: Update repository
+  when: dir.stat.exists
+  command: git remote update
+  args:
+    chdir: "{{ mirror_dir }}"
 
