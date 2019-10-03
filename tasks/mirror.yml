@@ -1,23 +1,26 @@
 ---
-- set_fact:
+- name: "Set mirror name"
+  set_fact:
     mirror_name: "{{ repo | urlsplit('path') | replace('/', '', 1) | replace('/', '-') }}"
 
+- name: "Set mirror dir"
+  set_fact:
+    mirror_dir: "{{ git_mirror_dir }}/{{ mirror_name }}"
 
 - name: Check if repo exists
+  register: dir
   stat:
-    path: "{{ git_mirror_clone_dir }}/{{ mirror_name }}"
-  register: repo_dir
+    path: "{{ git_mirror_dir }}/{{ mirror_name }}"
 
-- when: not repo_dir.stat.exists
+- when: not dir.stat.exists
   block:
     - debug:
-        msg: "Cloning {{ repo }} into {{ mirror_name }}..."
+        msg: "Cloning {{ repo }} -> {{ mirror_name }}..."
 
     - name: Clone repository
-      command: git clone "{{ repo }}" "{{ mirror_name }}"
-      args:
-        chdir: "{{ git_mirror_clone_dir }}"
-- when: repo_dir.stat.exists
+      command: git clone "{{ repo }}" "{{ mirror_dir }}"
+
+- when: dir.stat.exists
   block:
     - debug:
         msg: "Updating {{ mirror_name }}..."
@@ -25,5 +28,5 @@
     - name: Update repository
       command: git remote update
       args:
-        chdir: "{{ git_mirror_clone_dir }}/{{ mirror_name }}"
+        chdir: "{{ mirror_dir }}"
 

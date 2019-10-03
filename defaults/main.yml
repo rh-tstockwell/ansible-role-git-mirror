@@ -1,3 +1,3 @@
 ---
 git_mirrors: []
-git_mirror_clone_dir: "git-repos"
+git_mirror_dir: "git-repos"

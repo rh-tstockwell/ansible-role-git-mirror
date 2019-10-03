@@ -3,7 +3,7 @@
   block:
   - name: Ensure directories exist
     loop:
-      - "{{ git_mirror_clone_dir }}"
+      - "{{ git_mirror_dir }}"
     file:
       state: directory
       path: "{{ item }}"
