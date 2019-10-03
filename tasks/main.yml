@@ -1,19 +1,21 @@
 ---
-- name: Ensure directories exist
-  loop:
-    - "{{ git_archive_dir }}"
-    - "{{ git_archive_repo_dir }}"
-  file:
-    state: directory
-    path: "{{ item }}"
+- when: git_archive_repos | length > 1
+  block:
+  - name: Ensure directories exist
+    loop:
+      - "{{ git_archive_dir }}"
+      - "{{ git_archive_repo_dir }}"
+    file:
+      state: directory
+      path: "{{ item }}"
 
 
-- loop: "{{ git_archive_repos }}"
-  loop_control:
-    loop_var: repo
-  include_tasks: repo.yml
+  - loop: "{{ git_archive_repos }}"
+    loop_control:
+      loop_var: repo
+    include_tasks: repo.yml
 
-- name: Archive repos
-  archive:
-    path: "{{ git_archive_repo_dir }}/*"
-    dest: "{{ git_archive_path }}"
+  - name: Archive repos
+    archive:
+      path: "{{ git_archive_repo_dir }}/*"
+      dest: "{{ git_archive_path }}"
