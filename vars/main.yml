@@ -1,3 +1,0 @@
----
-git_archive_path: "{{ git_archive_dir }}/{{ git_archive_filename }}"
-git_archive_repo_dir: "{{ git_archive_dir }}/{{ git_archive_repo_subdir }}"

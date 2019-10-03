@@ -1,5 +1,3 @@
 ---
-git_archive_repos: []
-git_archive_dir: "git-repos"
-git_archive_filename: "git-repos.tar.gz"
-git_archive_repo_subdir: "repos"
+git_mirrors: []
+git_mirror_clone_dir: "git-repos"

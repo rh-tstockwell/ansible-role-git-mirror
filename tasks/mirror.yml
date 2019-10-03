@@ -5,7 +5,7 @@
 
 - name: Check if repo exists
   stat:
-    path: "{{ git_archive_repo_dir }}/{{ mirror_name }}"
+    path: "{{ git_mirror_clone_dir }}/{{ mirror_name }}"
   register: repo_dir
 
 - when: not repo_dir.stat.exists
@@ -16,7 +16,7 @@
     - name: Clone repository
       command: git clone "{{ repo }}" "{{ mirror_name }}"
       args:
-        chdir: "{{ git_archive_repo_dir }}"
+        chdir: "{{ git_mirror_clone_dir }}"
 - when: repo_dir.stat.exists
   block:
     - debug:
@@ -25,5 +25,5 @@
     - name: Update repository
       command: git remote update
       args:
-        chdir: "{{ git_archive_repo_dir }}/{{ mirror_name }}"
+        chdir: "{{ git_mirror_clone_dir }}/{{ mirror_name }}"
 
