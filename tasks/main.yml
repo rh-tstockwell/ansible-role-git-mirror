@@ -1,12 +1,19 @@
 ---
-- name: Ensure clone directory exists
+- name: Ensure directories exist
+  loop:
+    - "{{ git_archive_dir }}"
+    - "{{ git_archive_repo_dir }}"
   file:
     state: directory
-    path: "{{ git_mirror_clone_dir }}"
+    path: "{{ item }}"
 
-- include_tasks: mirror.yml
-  loop: "{{ git_mirrors }}"
+
+- loop: "{{ git_archive_repos }}"
   loop_control:
     loop_var: repo
+  include_tasks: repo.yml
 
-# tasks file for git-mirror
+- name: Archive repos
+  archive:
+    path: "{{ git_archive_repo_dir }}/*"
+    dest: "{{ git_archive_path }}"
