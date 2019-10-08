@@ -1,7 +1,7 @@
 ---
 - name: "Set mirror name"
   set_fact:
-    mirror_name: "{{ repo | slugify_repo }}"
+    mirror_name: "{{ repo | slugify }}"
 
 - name: "Set mirror dir"
   set_fact:
