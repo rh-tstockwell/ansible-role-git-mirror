@@ -10,4 +10,3 @@
 
 - set_fact:
     default_repos: "{{ all_repos | difference(custom_repos) }}"
-  git_mirror_custom_dest: 
