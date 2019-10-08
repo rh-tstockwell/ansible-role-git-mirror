@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  roles:
+    - git-mirror
+  vars:
+    git_mirrors:
+      - https://github.com/stocky37/dotfiles.git
+    git_mirror_dir: /tmp/git-repos
