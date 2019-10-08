@@ -1,8 +1,11 @@
 ---
-git_mirrors: []
+# common vars
 git_mirror_dir: "git-repos"
 git_mirror_action: "download"
 
+# download.yml vars
+git_mirrors: []
 
-# array of {src: <src_repo>, dest: <dest_repo>}
-git_mirror_custom_destinations: []
+# upload.yml vars
+git_mirror_dest: ''
+git_mirror_custom_dest: [] # array of {src: <src_repo_slug>, dest: <dest_repo>}
