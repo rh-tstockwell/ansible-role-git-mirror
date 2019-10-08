@@ -1,7 +1,7 @@
 ---
 - name: "Set mirror name"
   set_fact:
-    mirror_name: "{{ repo | urlsplit('path') | replace('/', '', 1) | replace('/', '-') }}"
+    mirror_name: "{{ repo | slugify_repo }}"
 
 - name: "Set mirror dir"
   set_fact:
