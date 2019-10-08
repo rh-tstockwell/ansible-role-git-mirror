@@ -3,7 +3,7 @@
     all_repos: "{{
       lookup('filetree', git_mirror_dir)
         | selectattr('path', 'match', '^.*[^\\/]\\.git$')
-        | selectattr('state', '==', 'directory')
+        | selectattr('state', 'equals', 'directory')
         | map(attribute='path')
         | list
       }}"
