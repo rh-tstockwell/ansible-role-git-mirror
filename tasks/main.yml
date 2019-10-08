@@ -1,25 +1,7 @@
 ---
-- when: git_mirrors | length > 0
-  block:
-  - name: Sort & distinct the repo list
-    set_fact:
-      git_mirrors: "{{ git_mirrors | sort | unique }}"
+- include_tasks: download.yml
+  when: git_mirror_action == 'download' or git_mirror_action == 'mirror'
 
-  - name: List the git repositories being mirrored
-    debug:
-      var: git_mirrors
+- include_tasks: upload.yml
+  when: git_mirror_action == 'upload' or git_mirror_action == 'mirror'
 
-  - name: Ensure directories exist
-    loop: ["{{ git_mirror_dir }}"]
-    file:
-      state: directory
-      path: "{{ item }}"
-
-
-  - loop: "{{ git_mirrors }}"
-    loop_control:
-      loop_var: repo
-      index_var: index
-    vars:
-      total: "{{ git_mirrors | length }}"
-    include_tasks: mirror.yml

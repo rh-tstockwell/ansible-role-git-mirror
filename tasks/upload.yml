@@ -1,0 +1,16 @@
+---
+- set_fact:
+    git_mirror_repos: "{{
+      lookup('filetree', git_mirror_workdir)
+        | selectattr('path', 'match', '^.*[^\\/]\\.git$')
+        | selectattr('state', 'eq', 'directory')
+        | map(attribute='path')
+        | list
+      }}"
+
+
+- name: Update repository mirrors
+  shell: "git push --mirror {{git_mirror_dest}}/{{item}}"
+  args:
+    chdir: "{{git_mirror_workdir}}/{{item}}"
+  loop: "{{git_mirror_repos}}"

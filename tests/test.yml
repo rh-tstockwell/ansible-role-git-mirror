@@ -3,6 +3,8 @@
   roles:
     - git-mirror
   vars:
+    git_mirror_action: mirror
     git_mirrors:
-      - https://github.com/stocky37/dotfiles.git
-    git_mirror_dir: /tmp/git-repos
+      - https://github.com/stocky37/ansible-role-git-mirror.git
+    git_mirror_workdir: /tmp/git-repos
+    git_mirror_dest: https://github.com/stocky37

@@ -1,16 +1,16 @@
 ---
 - name: "Set mirror name"
   set_fact:
-    mirror_name: "{{ repo | slugify_repo }}"
+    mirror_name: "{{ repo | slugify }}"
 
 - name: "Set mirror dir"
   set_fact:
-    mirror_dir: "{{ git_mirror_dir }}/{{ mirror_name }}"
+    mirror_dir: "{{ git_mirror_workdir }}/{{ mirror_name }}"
 
 - name: Check if repo exists
   register: dir
   stat:
-    path: "{{ git_mirror_dir }}/{{ mirror_name }}"
+    path: "{{ git_mirror_workdir }}/{{ mirror_name }}"
 
 - name: Show repository loop info
   debug:
