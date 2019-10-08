@@ -10,3 +10,7 @@
 
 - set_fact:
     default_repos: "{{ all_repos | difference(custom_repos) }}"
+
+- debug: var=all_repos
+- debug: var=custom_repos
+- debug: var=default_repos
