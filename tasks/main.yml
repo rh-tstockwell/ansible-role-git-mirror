@@ -23,3 +23,4 @@
     vars:
       total: "{{ git_mirrors | length }}"
     include_tasks: mirror.yml
+
