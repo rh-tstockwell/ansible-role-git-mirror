@@ -9,7 +9,7 @@ def slugify(arg, slug='-'):
     else:
         return _slug(arg, slug)
 
-def _slug(arg):
+def _slug(arg, slug):
     return split_url(arg, 'path').lstrip('/').replace('/', slug)
 
 
