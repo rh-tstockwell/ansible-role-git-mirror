@@ -1,5 +1,5 @@
 ---
-- when: git_mirrors | length > 1
+- when: git_mirrors | length > 0
   block:
   - name: Sort & distinct the repo list
     set_fact:
