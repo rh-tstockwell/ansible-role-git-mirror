@@ -1,0 +1,13 @@
+---
+- set_fact:
+    all_repos: "{{
+      lookup('filetree', git_mirror_dir)
+        | selectattr('path', 'match', '^.*\\.git$')
+        | map(attribute='path')
+        | list
+      }}"
+    custom_repos: "{{ git_mirror_custom_dest | map(attribute='src') | list }}"
+
+- set_fact:
+    default_repos: "{{ all_repos | difference(custom_repos) }}"
+  git_mirror_custom_dest: 
