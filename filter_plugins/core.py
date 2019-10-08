@@ -6,7 +6,7 @@ from ansible.plugins.filter.urlsplit import split_url
 def slugify(arg, slug='-'):
     if isinstance(arg, list):
         return map(_slug, arg, slug)
-    else
+    else:
         return _slug(arg, slug)
 
 def _slug(arg):
