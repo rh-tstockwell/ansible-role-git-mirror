@@ -7,7 +7,7 @@
         | map(attribute='path')
         | list
       }}"
-    repos_custom_dest: "{{ git_mirrors | map(attribute='src') | list }}"
+    repos_custom_dest: "{{ git_mirrors | map('slugify', attribute='src') | list }}"
 
 - set_fact:
     repos_default_dest: "{{ all_repos | difference(custom_repos) }}"
