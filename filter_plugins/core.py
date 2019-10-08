@@ -3,13 +3,20 @@ __metaclass__ = type
 
 from ansible.plugins.filter.urlsplit import split_url
 
-def slugify_repo(arg, slug='-'):
+def slugify(arg, slug='-'):
+    if isinstance(arg, list):
+        return map(_slug, arg, slug)
+    else
+        return _slug(arg, slug)
+
+def _slug(arg):
     return split_url(arg, 'path').lstrip('/').replace('/', slug)
+
 
 
 class FilterModule(object):
     def filters(self):
         return {
-            'slugify_repo': slugify_repo
+            'slugify': slugify
         }
 

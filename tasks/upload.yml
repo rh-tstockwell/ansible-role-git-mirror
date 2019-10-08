@@ -3,15 +3,15 @@
     all_repos: "{{
       lookup('filetree', git_mirror_dir)
         | selectattr('path', 'match', '^.*[^\\/]\\.git$')
-        | selectattr('state', 'equals', 'directory')
+        | selectattr('state', 'eq', 'directory')
         | map(attribute='path')
         | list
       }}"
-    dest_custom: "{{ git_mirrors | map(attribute='src') | list }}"
+    repos_custom_dest: "{{ git_mirrors | map(attribute='src') | list }}"
 
 - set_fact:
-    dest_default: "{{ all_repos | difference(custom_repos) }}"
+    repos_default_dest: "{{ all_repos | difference(custom_repos) }}"
 
 - debug: var=all_repos
-- debug: var=custom_repos
-- debug: var=default_repos
+- debug: var=repos_default_dest
+- debug: var=repos_custom_dest
