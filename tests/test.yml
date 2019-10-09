@@ -5,6 +5,7 @@
   vars:
     git_mirror_action: upload
     git_mirrors:
-      - https://github.com/stocky37/ansible-role-git-mirror.git
+      - src: https://github.com/stocky37/ansible-role-git-mirror.git
+        dest: custom
     git_mirror_dir: /tmp/git-repos
-    git_mirror_dest: https://github.com/stocky37-test
+    git_mirror_default_dest: https://github.com/stocky37

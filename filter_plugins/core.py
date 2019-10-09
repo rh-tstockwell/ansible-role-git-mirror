@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 from ansible.plugins.filter.urlsplit import split_url
+from six import string_types
 
 
 def slugify(arg, slug='-'):
@@ -9,18 +10,22 @@ def slugify(arg, slug='-'):
 
 
 # builds a map of src repo slugs to their destination
+# handles lists of strings as well as lists of {src:, [dest:]}
 def repo_map(mirrors, default_repo, slug='-'):
-    def mapped = {}
+    mapped = {}
     for mirror in mirrors:
-        def repo_slug = slugify(mirror['src'])
-        mapped[repo_slug] = mirror.has_key('dest') mirror['dest'] else '{}/{}'.format()default_repo + '/' + 
+        if isinstance(mirror, dict):
+            repo_slug = slugify(mirror['src'])
+            mapped[repo_slug] = '{}/{}'.format(mirror['dest'] if 'dest' in mirror else default_repo, repo_slug)
+        elif isinstance(mirror, string_types):
+            repo_slug = slugify(mirror['src'])  # potentially redundant but being safe
+            mapped[repo_slug] = '{}/{}'.format(default_repo, repo_slug)
     return mapped
-        
-    return { ): mirror.has_key('dest') mirror.dest else default_repo +  for mirror in mirrors}
 
 
 class FilterModule(object):
-    def filters(self):
+    @staticmethod
+    def filters():
         return {
             'slugify': slugify,
             'repo_map': repo_map
