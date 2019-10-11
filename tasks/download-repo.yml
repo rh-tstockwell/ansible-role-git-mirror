@@ -18,7 +18,7 @@
 
 - name: Clone repository
   when: not dir.stat.exists
-  command: git clone "{{ repo }}" "{{ mirror_dir }}"
+  command: git clone --mirror "{{ repo }}" "{{ mirror_dir }}"
 
 - name: Update repository
   when: dir.stat.exists
